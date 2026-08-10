@@ -1,0 +1,24 @@
+# The trusted enforcement workflow, hosted outside every governed repository.
+#
+# M4 fixture. The governed repository calls this pinned to a commit SHA. It cannot edit this file,
+# because it is not in its tree and not in its repository.
+name: Standards gate
+
+on:
+  workflow_call:
+    inputs:
+      standards-tag:
+        required: true
+        type: string
+      standards-sha:
+        required: true
+        type: string
+
+jobs:
+  machine-learning:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report that the trusted implementation ran
+        run: |
+          echo "trusted workflow ran"
+          echo "standards ${{ inputs.standards-tag }} @ ${{ inputs.standards-sha }}"
